@@ -1,0 +1,19 @@
+Describe how you have handled persistence in the last three semesters. 
+The considerations should include all relevant layers. File IO, Relational Databases, local storage and cookies in browsers. 
+
+Answer: in the first and second semester we used a premade DBConnector that had to be implemented in a jsp web project,
+and then we just called static DBConnector in a class with methods having to do with mysql data (getAllNames fx), also we used preparedstatements.
+We used sessions and attributes to show data on the webpage from a servlet. We also learned that relational databases need a PK, FK and is data inside tables.
+We also learned to use File IO to read or save data to a text file.
+LocalStorage = store information locally (servlet)
+On the third semester we used JPA mapping together with a persistence unit in a maven web project
+Cookies are client-side files that contain user information, we learned about them in third semester but didnt use it that much (we just fetched everytime we needed info).
+
+Explain the rationale behind the topic Object Relational Mapping and the Pros and Cons in using a ORM
+
+Answer:
+
+
+Explain the JPA strategy for handling Object Relational Mapping and important classes/annotations involved.
+
+Outline some of the fundamental differences in Database handling using plain JDBC versus JPA
