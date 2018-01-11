@@ -1,5 +1,7 @@
 /* global fetch */
 
+var saveJson = null;
+
 document.getElementById('btnsend').onclick = () => {
     var r = document.getElementById("region");
     var region = r.options[r.selectedIndex].value;
@@ -10,7 +12,7 @@ document.getElementById('btnsend').onclick = () => {
     gender = fixGender(gender);
     
     
-    document.getElementById('amount').value +
+    
             fetch('http://uinames.com/api/?amount=' +
                     document.getElementById('amount').value + region +
                     gender).then((response) => {
@@ -21,6 +23,7 @@ if(response.status >= 400){
         return response.json();
     }).then((json) => {
         console.log(json);
+        saveJson = json;
         var tableBody = makeTableBody(json);
         document.getElementById("tblbody").innerHTML =
                 tableBody;
@@ -28,13 +31,11 @@ if(response.status >= 400){
 };
 
 document.getElementById('btnsql').onclick = () => {
-    var tBody = document.getElementsByTagName("td");
-    for(var i = 0; i < tBody.length; i++){
-        if(tBody[i].innerHTML === "male" || tBody[i].innerHTML === "female"){
-        tBody[i].innerHTML+="\n";
-        }
-       document.getElementById('sql').innerHTML+= tBody[i].innerHTML;
-    }
+    var sql = "";
+for(var i = 0; i < saveJson.length; i++){
+    sql += "INSERT INTO names (name, surname, gender)VALUES('"+saveJson[i].name +"','"+ saveJson[i].surname +"','"+ saveJson[i].gender+"');\n";
+}
+document.getElementById('sql').innerHTML += sql;
 };
     function makeTableBody(json) {
         var fill = "";

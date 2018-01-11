@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            table {
+                font-family: arial, sans-serif;
+                border-collapse: collapse;
+                width: 100%;
+            }
+
+            td, th {
+                border: 1px solid #dddddd;
+                text-align: left;
+                padding: 8px;
+            }
+
+            tr:nth-child(even) {
+                background-color: #dddddd;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+        <input id="amount" type="number"/>amount
+        <input id="id" type="number"/>start id
+        <button id="btn">click</button>
+
+        <table>
+            <tr>
+                <th>fname</th>
+                <th>lname</th>
+                <th>age</th>
+                <th>id</th>
+            </tr>
+            <tbody id="tData">  </tbody>
+        </table>
+        </div>
+        <script>
+            document.getElementById('btn').onclick = () => {
+                var demands = {
+                    amount: document.getElementById('amount').value,
+                    id: document.getElementById('id').value
+                };
+                fetch('http://localhost:8084/exam-preparation_REST_JSON/api/data/' + demands.amount + "/" + demands.id, {
+                    method: 'GET',
+
+                })
+                        .then((res) => {
+                            return res.json();
+                        }).then((json) => {
+                    var fill = "";
+                    for (var i = 0; i < json.length; i++) {
+                        fill += "<tr><td>" + json[i].fname + "</td><td>" + json[i].lname + "</td><td>" + json[i].age + "</td><td>" + json[i].id + "</td></tr>"
+                    }
+                    document.getElementById('tData').innerHTML = fill;
+                })
+            }
+        </script>
+    </body>
+</html>
