@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div id="here"></div>
+        <script>
+            var content = document.getElementById("here");
+            fetch('http://localhost:8084/exam-preparation_REST_API/api/data/allPets').then((res) => {
+                return res.json();
+            }).then((json) => {
+                console.log(json);
+                var data;
+                content.innerHTML += "<p>";
+                for(var i = 0; i < json.length; i++){
+                    content.innerHTML += "name: " + json[i].name + " ";
+                } content.innerHTML += "</p>";
+            });
+
+            fetch('http://localhost:8084/exam-preparation_REST_API/api/data/event/2015-03-10').then((res) => {
+                return res.json();
+            }).then((json) => {
+                console.log(json);
+            });
+            fetch('http://localhost:8084/exam-preparation_REST_API/api/data/alivePets').then((res) => {
+                return res.json();
+            }).then((json) => {
+                console.log(json);
+            });
+        </script>
+    </body>
+</html>
