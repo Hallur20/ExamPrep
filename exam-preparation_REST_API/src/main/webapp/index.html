@@ -11,8 +11,33 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
+        <input id="ev" type="text"/>event
+        <input id="re" type="text"/>remark
+        <input id="da" type="text"/>date
+        <input id="pId" type="number"/>petId
+        <button id="btn">click</button>
+
         <div id="here"></div>
         <script>
+            document.getElementById('btn').onclick = () => {
+                var eventData = {
+                    event: document.getElementById("ev").value,
+                    remark: document.getElementById("re").value,
+                    date: document.getElementById("da").value,
+                    petId: document.getElementById("pId").value
+                };
+                fetch('http://localhost:8084/exam-preparation_REST_API/api/data/eventCreate',
+                        {method: 'POST', headers: {
+                                'Accept': 'application/json, text/plain, */*',
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(eventData)}).then((res) => {
+                    return res.json();
+                }).then((json) => {
+                    console.log(json);
+                });
+            };
+
             var content = document.getElementById("here");
             fetch('http://localhost:8084/exam-preparation_REST_API/api/data/allPets').then((res) => {
                 return res.json();
@@ -20,9 +45,10 @@ and open the template in the editor.
                 console.log(json);
                 var data;
                 content.innerHTML += "<p>";
-                for(var i = 0; i < json.length; i++){
+                for (var i = 0; i < json.length; i++) {
                     content.innerHTML += "name: " + json[i].name + " ";
-                } content.innerHTML += "</p>";
+                }
+                content.innerHTML += "</p>";
             });
 
             fetch('http://localhost:8084/exam-preparation_REST_API/api/data/event/2015-03-10').then((res) => {

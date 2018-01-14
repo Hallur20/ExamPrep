@@ -17,6 +17,7 @@ import javax.persistence.Persistence;
  * @author hvn15
  */
 public class Main {
+
     public static void main(String[] args) throws ParseException {
         Facade f = new Facade();
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("pu");
@@ -24,12 +25,12 @@ public class Main {
         //return all Pet's
         System.out.println(f.getAllPets());
         //total Number of pets formatted like: {"petCount":4}
-        System.out.println("{\"petCount\":"+f.getAllPets().size() + "}");
+        System.out.println("{\"petCount\":" + f.getAllPets().size() + "}");
         //alive pets
         System.out.println(f.getAlivePets());
         //given day event
         System.out.println(f.getEventByDayPet("2015-07-07"));
-        
+
         //create event for existing pet
         f.createEvent("something", "something something", "2011-02-02", new Pet(2));
     }

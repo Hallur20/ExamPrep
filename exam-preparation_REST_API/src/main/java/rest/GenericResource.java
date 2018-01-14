@@ -6,6 +6,9 @@
 package rest;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
 import entity.Event;
 import entity.Pet;
 import entityhelper.EventHelper;
@@ -24,7 +27,10 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
+import static javax.ws.rs.HttpMethod.POST;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.PathParam;
@@ -104,5 +110,24 @@ public class GenericResource {
             ));
         }
         return gson.toJson(fixedPets);
+    }
+
+    @POST
+    @Path("eventCreate")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public String createEvent(String content) throws ParseException {
+        try{
+        JsonObject json = new JsonParser().parse(content).getAsJsonObject();
+        f.createEvent(json.get("event").getAsString(),
+                json.get("remark").getAsString(),
+                json.get("date").getAsString(),
+                new Pet(json.get("petId").getAsInt()));
+        return gson.toJson("ok");
+        } catch(JsonSyntaxException e){
+            return gson.toJson(e.getMessage());
+        } catch (ParseException e) {
+            return gson.toJson(e.getMessage());
+        }
     }
 }
