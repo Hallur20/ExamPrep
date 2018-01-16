@@ -21,7 +21,7 @@ Fibonacci f = new Fibonacci();
        
             
             Long fromFib =  f.fib(MainThread.s1.poll());
-            System.out.println("size went to: " + MainThread.s1.size());
+            System.out.println("generated fib num: " + fromFib);
             try {
                 MainThread.s2.put(fromFib);
             } catch (InterruptedException ex) {
